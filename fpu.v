@@ -11,14 +11,14 @@ module fpu(
     output [63:0] result_dp,
     output overflow,
     output underflow
-    //output ready
+   
     );
 
     reg [31:0] result_sp1;
     reg [63:0] result_dp1;
     reg overflow1;
     reg underflow1;
-    reg ready1;
+    
 
     // Single precision
     wire overflow_sp;
@@ -33,7 +33,7 @@ module fpu(
         .A(a_sp),
         .B(b_sp),
         .Result(result_sp_temp),
-        //.Ready(ready_sp),
+       
         .Overflow_out(overflow_sp),
         .Underflow_out(underflow_sp)
     );
@@ -41,7 +41,7 @@ module fpu(
     // Double precision
     wire overflow_dp;
     wire underflow_dp;
-    wire ready_dp;
+   
     wire [63:0] result_dp_temp;
 
     fpu_64 fpu_64 (
@@ -51,20 +51,10 @@ module fpu(
         .A(a_dp),
         .B(b_dp),
         .Result(result_dp_temp),
-        //.Ready(ready_dp),
+        
         .Overflow_out(overflow_dp),
         .Underflow_out(underflow_dp)
     );
-
-    /*
-    // Select single or double precision
-    assign overflow = sp_dp ? overflow_dp : overflow_sp;
-    assign underflow = sp_dp ? underflow_dp : underflow_sp;
-    assign ready = sp_dp ? ready_dp : ready_sp;
-
-    assign result_sp = sp_dp ? 32'b0 : result_sp_temp;
-    assign result_dp = sp_dp ? result_dp_temp : 64'b0;
-    */
 
     always @(posedge clk or negedge rst) begin
         if (!rst) begin
@@ -87,6 +77,5 @@ module fpu(
     assign result_dp = result_dp1;
     assign overflow = overflow1;
     assign underflow = underflow1;
-    //assign ready = ready1;
 
 endmodule
