@@ -7,7 +7,6 @@ module fpu_32 #(
 	input rst,	
 	input [2:0] OpCode,	
 	output [WIDTH-1:0] Result,
-	//output Ready,
 	output Overflow_out,
 	output Underflow_out
 );
